@@ -142,10 +142,10 @@ $` dν = - \frac{8}{15} ν dt' + \sqrt{ \frac{2}{5} }σ_Y dW' `$
 <p align="justify">
 This section explains how the codes are organized in the different folders. Only relevant codes are included.
 The folder “Initial_validation” contains codes used for the validation of the PMVP model:
-- “PMVP_model_codes_for_validation_on_statistically_homogeneous_domains” contains the codes used to
+- “PMVP_statistically_homogeneous_domains” contains the codes used to
 plot the temporal evolutions of particle position variances on statistically homogeneous domains (the v-theta
 model and the skew-normal RW model).
-- “PMVP_model_codes_for_validation_on_statistically_inhomogenous_domains” contains the codes used for
+- “PMVP_statistically_inhomogenous_domains” contains the codes used for
 the validation cases on conductivity field with a spatially dependent mean velocity field and with a spatially
 dependent log-conductivity variance distributions.
 
