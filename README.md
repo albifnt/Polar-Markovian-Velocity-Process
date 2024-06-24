@@ -118,7 +118,68 @@ vanishes, regardless of the conductivity field heterogeneity. Manipulating and r
 for the angle <b>θ</b> and the non-dimensional velocity magnitude <b>U'</b>, we obtain
 </p>
 
+<p align="center">
+$` dU' = - \frac{8}{15}(U' - 1)dt' + \sqrt{ \frac{2}{5} }σ_Y dW' `$
+</p>
+<p align="center">
+$` θ = - (\frac{16}{15}θ + (ω_0 \frac{l_Y}{U})^2 y') dt + \frac{2 σ_Y}{\sqrt{15}} dW' `$
+</p>
 
+<p align="justify">
+where $` dy' = U' 0 dt' `$, $` ω_0 l_Y / U = 0.338 · 16/15 ≈ 0.361 `$ and the non-dimensional
+quantities $` t' = t U / l_Y `$, $` y' = y / l_Y `$ and the Wiener Process. Without loss of the 
+generality, the polar reformulation considers the natural logarithm of the non-dimensional 
+velocity $` ν = ln('U) `$. This allows to amplify and better resolve the low-velocity zone, 
+where instantaneous velocities are much more strongly correlated compared to high-velocity zone [5].
+Therefore, by applying Ito’s formula, the SDE becomes
+</p>
+
+<p align="center">
+$` dν = - \frac{8}{15} ν dt' + \sqrt{ \frac{2}{5} }σ_Y dW' `$
+</p>
+
+## Structure of the codes
+<p align="justify">
+This section explains how the codes are organized in the different folders. Only relevant codes are included.
+The folder “Initial_validation” contains codes used for the validation of the PMVP model:
+- “PMVP_model_codes_for_validation_on_statistically_homogeneous_domains” contains the codes used to
+plot the temporal evolutions of particle position variances on statistically homogeneous domains (the v-theta
+model and the skew-normal RW model).
+- “PMVP_model_codes_for_validation_on_statistically_inhomogenous_domains” contains the codes used for
+the validation cases on conductivity field with a spatially dependent mean velocity field and with a spatially
+dependent log-conductivity variance distributions.
+
+The folder “LOA_(Comparison_between_MC,_LOA_and_PMVP_results)” contains the MATLAB scripts and functions
+used to perform the Low Order Approximation. Files “Y_mean.txt” and “Y_variance.txt” are included; they provide the
+distributions of the conditional mean and conditional variance of the hydraulic conductivity, for a field conditioned on
+a low-value conductivity constraint at the center of the domain. Before running the LOA simulation it is necessary to
+produce the file “C_matrix.txt” by means of the script “COVARIANCE_MATRIX.m”. Once the covariance matrix is
+generated, the “LOA_simulation.m” can be performed. Plots of the hydraulic head mean and variance, velocity means
+and variances, velocity field, conditional mean and variance distributions are generated. It's important to underline that LOA
+distributions in the report were obtained with the “SME simulator developed by Dr. Liyong Li of Chevron Energy
+Technology Company” which was extensively validated. This SME simulator, unfortunately, could not be provided. The
+MATLAB code “LOA_simulation.m” provides distributions in agreement with “SME simulator developed by Dr. Liyong
+Li of Chevron Energy Technology Company” as far as the hydraulic head mean, hydraulic head variance, velocity
+means are concerned (A picture provides the comparison between hydraulic head mean and variance distributions
+obtained with Monte Carlo and with “LOA_simulation.m”). However, distributions of the velocity variances become
+more unreasonable in specific log-conductivity scenarios.
+
+The folder “MC_(Comparison_between_MC,_LOA_and_PMVP_results)” contains the python code (MC_simulation.py)
+to solve the Darcy Flow problem for multiple realizations of the conductivity field. It also contains the MATLAB file
+“Elaborate_MC_results.m” which calculates statistical moments resulting from the Monte Carlo simulation.
+
+The folder “PMVP_model_(Comparison_between_MC,_LOA_and_PMVP_results)” contains the file
+“PMVP_particle_generator.py” which allows to generate the particle path line realizations which are then used to
+compute statistical moments at each grid point of the computational domain. The MATLAB file
+“Numerical_moments.m” takes as input the .txt files generated with “PMVP_particle_generator.py” and computes
+the PMVP statistical moments.
+
+The folder “Interpolating_funtions_(Comparison_between_MC,_LOA_and_PMVP_results)” contains the MATLAB
+script to generate the distributions of the Cartesian velocity variances with the interpolating functions.
+</p>
+
+## References
+<p align="justify">
 [1] Fanchi, J. R. (2010). 4 - porosity and permeability. In Integrated Reservoir Asset Management, pages 49 – 69. Gulf Professional Publishing, Boston.
 
 [2] Gelhar, L. (1993). Stochastic Subsurface Hydrology. Prentice-Hall.
@@ -126,3 +187,6 @@ for the angle <b>θ</b> and the non-dimensional velocity magnitude <b>U'</b>, we
 [3] Meyer, D. W. (2017a). Relating recent random walk models with classical perturbation theory for dispersion predictions in the heterogeneous porous subsurface. Advances in Water Resources, 105:227 – 232.
 
 [4] Gardiner, C. W. (2004). Handbook of stochastic methods for physics, chemistry and the natural sciences, volume 13 of Springer Series in Synergetics. Springer-Verlag, Berlin, third edition.
+
+[5] Le Borgne, T., de Dreuzy, J.-R., Davy, P., and Bour, O. (2007). Characterization of the velocity field organization in heterogeneous media by conditional correlation. Water Resources Research, 43(2).
+</p>
